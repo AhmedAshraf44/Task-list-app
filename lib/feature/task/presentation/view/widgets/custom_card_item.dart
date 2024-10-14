@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:task_app/core/utils/app_style.dart';
+import 'package:task_app/feature/task/presentation/view/widgets/custom_circle_avater_check.dart';
 
-import '../../../constants.dart';
+import '../../../../../constants.dart';
 
 class CustomCardItem extends StatelessWidget {
   const CustomCardItem({
@@ -27,17 +28,18 @@ class CustomCardItem extends StatelessWidget {
             'Due Date: Mon. 21/3/2024',
             style: AppStyle.textStyle12,
           ),
-          trailing: CircleAvatar(
+          trailing: CustomCircleAvaterCheck(
+            onTap: () {},
             backgroundColor: const Color(0xff4ECB71).withOpacity(0.25),
-            maxRadius: 15,
-            child: const Icon(
-              Icons.check,
-              color: kPrimaryColor,
-              size: 20,
-            ),
+            iconColor: kPrimaryColor,
           ),
         ),
       ),
     );
   }
 }
+//not done 
+//const Color(0xffF4FBF6) 
+
+//const Color(0xffDAF3E1)
+

@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:task_app/constants.dart';
 import 'package:task_app/core/utils/app_style.dart';
+import 'package:task_app/feature/task/presentation/view/widgets/custom_text_field.dart';
+
+import 'custom_button_item.dart';
 
 class AddTaskForm extends StatefulWidget {
   const AddTaskForm({super.key});
@@ -17,9 +21,26 @@ class _AddTaskFormState extends State<AddTaskForm> {
       //autovalidateMode: autovalidateMode,
       key: formKey,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Align(
+            alignment: Alignment.topRight,
+            child: IconButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              icon: const Icon(
+                Icons.close,
+                color: Color(0xffF24E1E),
+              ),
+            ),
+          ),
+          const Text(
+            'Create New Task',
+            style: AppStyle.textStyle15,
+          ),
           const SizedBox(
-            height: 32,
+            height: 14,
           ),
           CustomTextField(
             hint: 'Task title',
@@ -37,7 +58,7 @@ class _AddTaskFormState extends State<AddTaskForm> {
             },
           ),
           const SizedBox(
-            height: 32,
+            height: 30,
           ),
           // BlocBuilder<AddNotesCubit, AddNotesStates>(
           //   builder: (context, state) => CustomButton(
@@ -59,57 +80,22 @@ class _AddTaskFormState extends State<AddTaskForm> {
           //   setState(() {});
           // }
           //  },
+          SizedBox(
+            width: double.infinity,
+            child: CustomButtonItem(
+              onPressed: () {},
+              backgroundColor: kPrimaryColor,
+              style: AppStyle.textStyle15.copyWith(color: kWhiteColor),
+              title: 'Save Task',
+              padding: 20,
+              borderRadius: 10,
+            ),
+          ),
           const SizedBox(
             height: 20,
           ),
         ],
       ),
-    );
-  }
-}
-
-class CustomTextField extends StatelessWidget {
-  const CustomTextField({
-    super.key,
-    this.hint,
-    this.onSaved,
-    this.onChanged,
-    this.initialValue,
-  });
-  final String? hint;
-  final void Function(String?)? onSaved;
-  final void Function(String)? onChanged;
-  final String? initialValue;
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      validator: (value) {
-        if (value?.isEmpty ?? true) {
-          return 'Feiled is Required';
-        } else {
-          return null;
-        }
-      },
-      onSaved: onSaved,
-      onChanged: onChanged,
-      //  cursorColor: kPrimaryColor,
-      initialValue: initialValue,
-      decoration: InputDecoration(
-        border: buildBorder(),
-        enabledBorder: buildBorder(),
-        //  focusedBorder: buildBorder(kPrimaryColor),
-        hintText: hint,
-        hintStyle: AppStyle.textStyle12
-            .copyWith(color: const Color(0xff000000).withOpacity(.5)),
-      ),
-    );
-  }
-
-  OutlineInputBorder buildBorder([color]) {
-    return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(8),
-      borderSide:
-          BorderSide(color: color ?? const Color(0xffD9D9D9).withOpacity(.2)),
     );
   }
 }

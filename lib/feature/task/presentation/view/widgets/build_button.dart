@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_app/core/utils/app_style.dart';
-import 'package:task_app/core/utils/widgets/custom_button_item.dart';
+import 'package:task_app/feature/task/presentation/view/widgets/custom_button_item.dart';
 
-import '../../../constants.dart';
-import '../../../feature/task/presentation/manger/change_button_cubit/change_button_cubit.dart';
-import '../../../feature/task/presentation/manger/change_button_cubit/change_button_state.dart';
+import '../../../../../constants.dart';
+import '../../manger/change_button_cubit/change_button_cubit.dart';
+import '../../manger/change_button_cubit/change_button_state.dart';
 
 class BuildButton extends StatelessWidget {
   const BuildButton({super.key});

@@ -7,7 +7,7 @@ class CustomButtonItem extends StatelessWidget {
     required this.style,
     required this.title,
     required this.backgroundColor,
-    this.padding = 0,
+    this.padding = 10,
     this.borderRadius = 20,
   });
   final void Function()? onPressed;
@@ -22,7 +22,7 @@ class CustomButtonItem extends StatelessWidget {
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
           backgroundColor: backgroundColor,
-          //padding: EdgeInsets.all(padding),
+          //  padding: EdgeInsets.all(padding),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(borderRadius))),
       child: Text(
