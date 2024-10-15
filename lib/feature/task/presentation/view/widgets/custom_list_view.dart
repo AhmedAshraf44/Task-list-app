@@ -11,7 +11,7 @@ class CustomListView extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 9),
         child: ListView.builder(
           physics: const BouncingScrollPhysics(),
-          itemCount: 2,
+          itemCount: 10,
           itemBuilder: (context, index) => const Padding(
             padding: EdgeInsets.only(bottom: 17),
             child: CustomCardItem(),

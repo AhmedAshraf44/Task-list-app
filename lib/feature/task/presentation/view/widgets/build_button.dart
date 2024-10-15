@@ -8,16 +8,16 @@ import '../../manger/change_button_cubit/change_button_cubit.dart';
 import '../../manger/change_button_cubit/change_button_state.dart';
 
 class BuildButton extends StatelessWidget {
-  const BuildButton({super.key});
-
+  const BuildButton({super.key, this.paddinghorizontal = 22});
+  final double paddinghorizontal;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ChangeButtonCubit, ChangeButtonState>(
       builder: (context, state) {
         var cubit = ChangeButtonCubit.get(context);
         return Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 22,
+          padding: EdgeInsets.symmetric(
+            horizontal: paddinghorizontal,
           ),
           child: Row(
             children: [

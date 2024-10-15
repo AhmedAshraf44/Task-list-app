@@ -1,11 +1,17 @@
 import 'package:bloc/bloc.dart';
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:task_app/bloc_observer.dart';
 import 'package:task_app/feature/task/presentation/view/task_view.dart';
 
 void main() {
   Bloc.observer = MyBlocObserver();
-  runApp(const TaskAPP());
+  runApp(
+    DevicePreview(
+      enabled: true,
+      builder: (context) => const TaskAPP(),
+    ),
+  );
 }
 
 class TaskAPP extends StatelessWidget {
@@ -13,9 +19,11 @@ class TaskAPP extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: TaskView(),
+      locale: DevicePreview.locale(context),
+      builder: DevicePreview.appBuilder,
+      home: const TaskView(),
     );
   }
 }
