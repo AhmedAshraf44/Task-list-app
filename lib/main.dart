@@ -1,5 +1,4 @@
-import 'package:bloc/bloc.dart';
-import 'package:device_preview/device_preview.dart';
+//import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,27 +12,32 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  // if (kIsWeb) {
+  // sqfliteFfiInit();
+  // databaseFactory = databaseFactoryFfiWeb;
+  // }
   Bloc.observer = MyBlocObserver();
   runApp(
-    DevicePreview(
-      enabled: true,
-      builder: (context) => const TaskAPP(),
-    ),
+    // DevicePreview(
+    //   enabled: true,
+    //   builder: (context) =>
+    const TaskApp(),
+//    ),
   );
 }
 
-class TaskAPP extends StatelessWidget {
-  const TaskAPP({super.key});
+class TaskApp extends StatelessWidget {
+  const TaskApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => TaskCubit()..createDatabase(),
-      child: MaterialApp(
+      child: const MaterialApp(
         debugShowCheckedModeBanner: false,
-        locale: DevicePreview.locale(context),
-        builder: DevicePreview.appBuilder,
-        home: const TaskView(),
+        // locale: DevicePreview.locale(context),
+        // builder: DevicePreview.appBuilder,
+        home: TaskView(),
       ),
     );
   }

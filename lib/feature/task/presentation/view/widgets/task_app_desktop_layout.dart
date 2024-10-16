@@ -3,8 +3,8 @@ import 'package:task_app/feature/task/presentation/view/widgets/custom_appbar_de
 import 'package:task_app/feature/task/presentation/view/widgets/custom_grid_view.dart';
 
 class TaskAppDeskTopLayout extends StatelessWidget {
-  const TaskAppDeskTopLayout({super.key});
-
+  const TaskAppDeskTopLayout({super.key, required this.tasks});
+  final List<Map<dynamic, dynamic>> tasks;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -19,11 +19,30 @@ class TaskAppDeskTopLayout extends StatelessWidget {
               child: Padding(
             padding: EdgeInsets.only(
                 right: MediaQuery.sizeOf(context).width < 1025 ? 0 : 211 - 60),
-            child: const CustomGridView(),
+            child: CustomGridView(
+              tasks: tasks,
+            ),
           )),
         ],
       ),
     );
   }
 }
-//CustomConditionalBuilder()
+// class CustomConditionalBuilder extends StatelessWidget {
+//   const CustomConditionalBuilder({
+//     super.key,
+//     required this.tasks,
+//   });
+
+//   final List<Map<dynamic, dynamic>> tasks;
+//   @override
+//   Widget build(BuildContext context) {
+//     return ConditionalBuilder(
+//       condition: tasks.isNotEmpty,
+//       builder: (context) => CustomGridView(
+//         tasks: tasks,
+//       ),
+//       fallback: (context) => const BuildTaskEmpty(),
+//     );
+//   }
+// }

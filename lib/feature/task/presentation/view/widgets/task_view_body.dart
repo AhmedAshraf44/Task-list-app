@@ -11,7 +11,7 @@ class TaskViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.max,
+      //mainAxisSize: MainAxisSize.max,
       children: [
         const BuildButton(),
         CustomConditionalBuilder(

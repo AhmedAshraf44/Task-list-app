@@ -11,7 +11,7 @@ class CustomTextField extends StatelessWidget {
     this.onSaved,
     this.onChanged,
     this.initialValue,
-    required this.controller,
+    this.controller,
     required this.keyboardType,
     this.onTap,
     this.validator,
@@ -20,7 +20,7 @@ class CustomTextField extends StatelessWidget {
   final void Function(String?)? onSaved;
   final void Function(String)? onChanged;
   final String? initialValue;
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final TextInputType keyboardType;
   final void Function()? onTap;
   final String? Function(String?)? validator;

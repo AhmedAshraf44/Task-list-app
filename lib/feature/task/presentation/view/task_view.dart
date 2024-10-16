@@ -66,7 +66,9 @@ class TaskView extends StatelessWidget {
             mobileLayout: (context) => TaskAppMobileLayout(
               tasks: tasks,
             ),
-            desktopLayout: (context) => const TaskAppDeskTopLayout(),
+            desktopLayout: (context) => TaskAppDeskTopLayout(
+              tasks: tasks,
+            ),
           );
         },
       ),

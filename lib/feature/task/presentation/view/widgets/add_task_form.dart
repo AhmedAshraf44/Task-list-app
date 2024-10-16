@@ -80,10 +80,11 @@ class AddTaskForm extends StatelessWidget {
             hint: 'Due Date',
           ),
           const SizedBox(
-            height: 30,
+            height: 20,
           ),
           SizedBox(
             width: double.infinity,
+            height: 60,
             child: BlocConsumer<TaskCubit, TaskState>(
               listener: (context, state) {
                 if (state is InsertDatabaseState) {
@@ -114,9 +115,9 @@ class AddTaskForm extends StatelessWidget {
               },
             ),
           ),
-          const SizedBox(
-            height: 20,
-          ),
+          // const SizedBox(
+          //   height: 20,
+          // ),
         ],
       ),
     );
