@@ -11,21 +11,26 @@ class CustomTextField extends StatelessWidget {
     this.onSaved,
     this.onChanged,
     this.initialValue,
+    required this.controller,
+    required this.keyboardType,
+    this.onTap,
+    this.validator,
   });
   final String? hint;
   final void Function(String?)? onSaved;
   final void Function(String)? onChanged;
   final String? initialValue;
+  final TextEditingController controller;
+  final TextInputType keyboardType;
+  final void Function()? onTap;
+  final String? Function(String?)? validator;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      validator: (value) {
-        if (value?.isEmpty ?? true) {
-          return 'Feiled is Required';
-        } else {
-          return null;
-        }
-      },
+      validator: validator,
+      onTap: onTap,
+      controller: controller,
+      keyboardType: keyboardType,
       onSaved: onSaved,
       onChanged: onChanged,
       cursorColor: kPrimaryColor,

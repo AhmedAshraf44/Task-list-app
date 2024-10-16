@@ -9,6 +9,7 @@ class CustomButtonItem extends StatelessWidget {
     required this.backgroundColor,
     this.padding = 10,
     this.borderRadius = 20,
+    this.isLoading = false,
   });
   final void Function()? onPressed;
   final Color backgroundColor;
@@ -16,6 +17,7 @@ class CustomButtonItem extends StatelessWidget {
   final String title;
   final double padding;
   final double borderRadius;
+  final bool isLoading;
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -25,10 +27,18 @@ class CustomButtonItem extends StatelessWidget {
           //  padding: EdgeInsets.all(padding),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(borderRadius))),
-      child: Text(
-        title,
-        style: style,
-      ),
+      child: isLoading
+          ? const SizedBox(
+              width: 25,
+              height: 25,
+              child: CircularProgressIndicator(
+                  // color: Colors.black,
+                  ),
+            )
+          : Text(
+              title,
+              style: style,
+            ),
     );
   }
 }

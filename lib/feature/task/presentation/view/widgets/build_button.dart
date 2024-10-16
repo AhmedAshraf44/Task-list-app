@@ -4,17 +4,17 @@ import 'package:task_app/core/utils/app_style.dart';
 import 'package:task_app/feature/task/presentation/view/widgets/custom_button_item.dart';
 
 import '../../../../../constants.dart';
-import '../../manger/change_button_cubit/change_button_cubit.dart';
-import '../../manger/change_button_cubit/change_button_state.dart';
+import '../../manger/task_cubit/task_cubit.dart';
+import '../../manger/task_cubit/task_state.dart';
 
 class BuildButton extends StatelessWidget {
   const BuildButton({super.key, this.paddinghorizontal = 22});
   final double paddinghorizontal;
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ChangeButtonCubit, ChangeButtonState>(
+    return BlocBuilder<TaskCubit, TaskState>(
       builder: (context, state) {
-        var cubit = ChangeButtonCubit.get(context);
+        var cubit = TaskCubit.get(context);
         return Padding(
           padding: EdgeInsets.symmetric(
             horizontal: paddinghorizontal,

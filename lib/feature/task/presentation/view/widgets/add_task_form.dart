@@ -1,24 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:task_app/constants.dart';
 import 'package:task_app/core/utils/app_style.dart';
+import 'package:task_app/feature/task/presentation/manger/task_cubit/task_cubit.dart';
+import 'package:task_app/feature/task/presentation/manger/task_cubit/task_state.dart';
 import 'package:task_app/feature/task/presentation/view/widgets/custom_text_field.dart';
 
 import 'custom_button_item.dart';
 
-class AddTaskForm extends StatefulWidget {
+class AddTaskForm extends StatelessWidget {
   const AddTaskForm({super.key});
-
-  @override
-  State<AddTaskForm> createState() => _AddTaskFormState();
-}
-
-class _AddTaskFormState extends State<AddTaskForm> {
-  final GlobalKey<FormState> formKey = GlobalKey();
-  String? title, date;
+  static var formKey = GlobalKey<FormState>();
+  static TextEditingController tittleController = TextEditingController();
+  static TextEditingController dateController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Form(
-      //autovalidateMode: autovalidateMode,
       key: formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,52 +41,77 @@ class _AddTaskFormState extends State<AddTaskForm> {
             height: 14,
           ),
           CustomTextField(
-            hint: 'Task title',
-            onSaved: (value) {
-              title = value;
+            validator: (value) {
+              if (value?.isEmpty ?? true) {
+                return 'Title is Required';
+              } else {
+                return null;
+              }
             },
+            hint: 'Task title',
+            controller: tittleController,
+            keyboardType: TextInputType.text,
           ),
           const SizedBox(
             height: 15,
           ),
           CustomTextField(
-            hint: 'Due Date',
-            onSaved: (value) {
-              date = value;
+            validator: (value) {
+              if (value?.isEmpty ?? true) {
+                return 'Date is Required';
+              } else {
+                return null;
+              }
             },
+            onTap: () {
+              showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now(),
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime(2025))
+                  .then(
+                (value) {
+                  dateController.text = DateFormat.yMMMEd().format(value!);
+                },
+              );
+            },
+            controller: dateController,
+            keyboardType: TextInputType.datetime,
+            hint: 'Due Date',
           ),
           const SizedBox(
             height: 30,
           ),
-          // BlocBuilder<AddNotesCubit, AddNotesStates>(
-          //   builder: (context, state) => CustomButton(
-          //     isLoading: state is AddNotesLoadingState ? true : false,
-          //  onTap: () {
-          // if (formKey.currentState!.validate()) {
-          //   formKey.currentState!.save();
-          //   var currentDate = DateTime.now();
-          //   var formetCurrentDate =
-          //       DateFormat('dd-MM-yyyy').format(currentDate);
-          //   var notes = NotesModel(
-          //       title: title!,
-          //       subTitle: subTitle!,
-          //       date: formetCurrentDate,
-          //       color: Colors.blue.value);
-          //   BlocProvider.of<AddNotesCubit>(context).getNotes(notes);
-          // } else {
-          //   autovalidateMode = AutovalidateMode.always;
-          //   setState(() {});
-          // }
-          //  },
           SizedBox(
             width: double.infinity,
-            child: CustomButtonItem(
-              onPressed: () {},
-              backgroundColor: kPrimaryColor,
-              style: AppStyle.textStyle15.copyWith(color: kWhiteColor),
-              title: 'Save Task',
-              padding: 20,
-              borderRadius: 10,
+            child: BlocConsumer<TaskCubit, TaskState>(
+              listener: (context, state) {
+                if (state is InsertDatabaseState) {
+                  Navigator.of(context).pop();
+                  dateController.clear();
+                  tittleController.clear();
+                }
+              },
+              builder: (context, state) {
+                var cubit = TaskCubit.get(context);
+                return CustomButtonItem(
+                  isLoading: state is InsertLoadingState,
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      formKey.currentState!.save();
+                      cubit.insertToDatabase(
+                        title: tittleController.text,
+                        date: dateController.text,
+                      );
+                    }
+                  },
+                  backgroundColor: kPrimaryColor,
+                  style: AppStyle.textStyle15.copyWith(color: kWhiteColor),
+                  title: 'Save Task',
+                  padding: 20,
+                  borderRadius: 10,
+                );
+              },
             ),
           ),
           const SizedBox(
