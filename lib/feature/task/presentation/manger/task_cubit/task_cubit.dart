@@ -1,7 +1,9 @@
 import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:task_app/feature/task/presentation/manger/task_cubit/task_state.dart';
+import 'package:task_app/feature/task/presentation/model/task_model.dart';
 
 class TaskCubit extends Cubit<TaskState> {
   TaskCubit() : super(InitialState());
@@ -11,9 +13,9 @@ class TaskCubit extends Cubit<TaskState> {
   int isActive = 0;
   bool isStatus = true;
   late Database database;
-  List<Map> allTasks = [];
-  List<Map> notDoneTasks = [];
-  List<Map> doneTasks = [];
+  List<TaskModel> allTasks = [];
+  List<TaskModel> notDoneTasks = [];
+  List<TaskModel> doneTasks = [];
 
   changeButtonColor(int index) {
     isActive = index;
@@ -82,23 +84,25 @@ class TaskCubit extends Cubit<TaskState> {
   }
 
   void getFromDatabase(database) {
+    emit(GetDatabaseLoadingState());
     allTasks = [];
     notDoneTasks = [];
     doneTasks = [];
-    emit(GetDatabaseLoadingState());
     database.rawQuery('SELECT * FROM tasks').then(
       (value) {
         value.forEach(
           (element) {
-            if (element['status'] == 'all' ||
-                element['status'] == 'done' ||
-                element['status'] == 'not done') {
-              allTasks.add(element);
+            // log('element : $element');
+            TaskModel task = TaskModel.fromJson(element);
+            if (task.status == 'all' ||
+                task.status == 'done' ||
+                task.status == 'not done') {
+              allTasks.add(task);
             }
-            if (element['status'] == 'done') {
-              doneTasks.add(element);
+            if (task.status == 'done') {
+              doneTasks.add(task);
             } else {
-              notDoneTasks.add(element);
+              notDoneTasks.add(task);
             }
           },
         );
@@ -108,17 +112,56 @@ class TaskCubit extends Cubit<TaskState> {
   }
 
   void updateData({
-    required String status,
     required int id,
+    String? status,
+    String? title,
+    String? date,
   }) {
-    database.rawUpdate(
-        'UPDATE tasks SET status = ? WHERE id = ?', [status, id]).then(
-      (value) {
+    if (status != null) {
+      database.rawUpdate(
+        'UPDATE tasks SET status = ? WHERE id = ?',
+        [status, id],
+      ).then((value) {
         getFromDatabase(database);
         emit(UpdateDatabaseState());
-      },
-    );
+      });
+    } else if (title != null && date != null) {
+      database.rawUpdate(
+        'UPDATE tasks SET tittle = ?, date = ? WHERE id = ?',
+        [title, date, id],
+      ).then((value) {
+        getFromDatabase(database);
+        emit(UpdateDatabaseState());
+      });
+    }
   }
+
+  // void updateIconButtom({
+  //   required String status,
+  //   required int id,
+  // }) {
+  //   database.rawUpdate(
+  //       'UPDATE tasks SET status = ? WHERE id = ?', [status, id]).then(
+  //     (value) {
+  //       getFromDatabase(database);
+  //       emit(UpdateDatabaseState());
+  //     },
+  //   );
+  // }
+
+  // void updateData({
+  //   required String title,
+  //   required String date,
+  //   required int id,
+  // }) {
+  //   database.rawUpdate('UPDATE tasks SET tittle = ?, date = ? WHERE id = ?',
+  //       [title, date, id]).then(
+  //     (value) {
+  //       getFromDatabase(database);
+  //       emit(UpdateDatabaseState());
+  //     },
+  //   );
+  // }
 
   void deletfromDatabase({
     required int id,

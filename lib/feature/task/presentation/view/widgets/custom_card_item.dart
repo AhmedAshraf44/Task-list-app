@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:task_app/core/utils/app_style.dart';
 import 'package:task_app/feature/task/presentation/manger/task_cubit/task_cubit.dart';
+import 'package:task_app/feature/task/presentation/model/task_model.dart';
 import 'package:task_app/feature/task/presentation/view/edit_task_view.dart';
 import 'package:task_app/feature/task/presentation/view/widgets/custom_circle_avater_check.dart';
 import '../../../../../constants.dart';
@@ -11,22 +12,23 @@ class CustomCardItem extends StatelessWidget {
     super.key,
     required this.tasks,
   });
-  final Map tasks;
+  final TaskModel tasks;
   @override
   Widget build(BuildContext context) {
     var cubit = TaskCubit.get(context);
     return Dismissible(
-      key: Key(tasks['id'].toString()),
+      key: Key(tasks.id.toString()),
       onDismissed: (direction) {
-        cubit.deletfromDatabase(id: tasks['id']);
-        log('delete : ${tasks['id']}');
+        cubit.deletfromDatabase(id: tasks.id);
+        log('delete : ${tasks.id}');
       },
       child: InkWell(
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => EditTaskView(
-                    title: tasks['tittle'],
-                    date: tasks['date'],
+                    title: tasks.title,
+                    date: tasks.date,
+                    id: tasks.id,
                   )));
         },
         child: Card(
@@ -39,27 +41,27 @@ class CustomCardItem extends StatelessWidget {
             child: ListTile(
               contentPadding: const EdgeInsets.all(0),
               title: Text(
-                tasks['tittle'],
+                tasks.title,
                 style: AppStyle.textStyle15,
               ),
               subtitle: Text(
-                'Due Date: ${tasks['date']}',
+                'Due Date: ${tasks.date}',
                 style: AppStyle.textStyle12,
               ),
               trailing: CustomCircleAvaterCheck(
                 onTap: () {
                   cubit.updateData(
                       status: cubit.isStatus ? 'done' : 'not done',
-                      id: tasks['id']);
+                      id: tasks.id);
                   // log('status : ${tasks['status']}');
                   // log('isStatus :${cubit.isStatus}');
                   // log('id: ${tasks['id']}');
                   cubit.changeStatus(cubit.isStatus);
                 },
-                backgroundColor: tasks['status'] == 'done'
+                backgroundColor: tasks.status == 'done'
                     ? const Color(0xff4ECB71).withOpacity(0.25)
                     : const Color(0xffF4FBF6),
-                iconColor: tasks['status'] == 'done'
+                iconColor: tasks.status == 'done'
                     ? kPrimaryColor
                     : const Color(0xffDAF3E1),
               ),

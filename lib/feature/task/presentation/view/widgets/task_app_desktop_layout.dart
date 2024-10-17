@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:task_app/feature/task/presentation/model/task_model.dart';
 import 'package:task_app/feature/task/presentation/view/widgets/custom_appbar_desktop.dart';
 import 'package:task_app/feature/task/presentation/view/widgets/custom_grid_view.dart';
 
 class TaskAppDeskTopLayout extends StatelessWidget {
   const TaskAppDeskTopLayout({super.key, required this.tasks});
-  final List<Map<dynamic, dynamic>> tasks;
+  final List<TaskModel> tasks;
   @override
   Widget build(BuildContext context) {
     return Padding(

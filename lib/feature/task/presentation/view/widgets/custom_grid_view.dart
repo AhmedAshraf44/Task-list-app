@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_app/feature/task/presentation/manger/task_cubit/task_cubit.dart';
 import 'package:task_app/feature/task/presentation/manger/task_cubit/task_state.dart';
+import 'package:task_app/feature/task/presentation/model/task_model.dart';
 import 'package:task_app/feature/task/presentation/view/widgets/custom_card_item.dart';
 
 class CustomGridView extends StatelessWidget {
@@ -9,7 +10,7 @@ class CustomGridView extends StatelessWidget {
     super.key,
     required this.tasks,
   });
-  final List<Map<dynamic, dynamic>> tasks;
+  final List<TaskModel> tasks;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<TaskCubit, TaskState>(

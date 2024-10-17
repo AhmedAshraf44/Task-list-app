@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_app/core/utils/app_style.dart';
@@ -52,16 +54,22 @@ class TaskView extends StatelessWidget {
           : null,
       body: BlocBuilder<TaskCubit, TaskState>(
         builder: (context, state) {
+          if (state is GetDatabaseLoadingState) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
           var cubit = TaskCubit.get(context);
+
           var tasks = cubit.allTasks;
           if (cubit.isActive == 0) {
             tasks = cubit.allTasks;
-            print(tasks);
           } else if (cubit.isActive == 1) {
             tasks = cubit.notDoneTasks;
           } else {
             tasks = cubit.doneTasks;
           }
+          log("tasks tasks: $tasks");
           return AdaptiveLayoutWidget(
             mobileLayout: (context) => TaskAppMobileLayout(
               tasks: tasks,

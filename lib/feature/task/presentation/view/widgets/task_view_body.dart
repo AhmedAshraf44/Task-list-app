@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:task_app/feature/task/presentation/model/task_model.dart';
 import 'package:task_app/feature/task/presentation/view/widgets/custom_conditional_builder.dart';
 import 'build_button.dart';
 
@@ -7,7 +8,7 @@ class TaskViewBody extends StatelessWidget {
     super.key,
     required this.tasks,
   });
-  final List<Map<dynamic, dynamic>> tasks;
+  final List<TaskModel> tasks;
   @override
   Widget build(BuildContext context) {
     return Column(
