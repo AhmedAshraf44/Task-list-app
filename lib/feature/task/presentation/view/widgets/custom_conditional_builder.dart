@@ -1,13 +1,9 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
-import 'package:task_app/feature/task/presentation/model/task_model.dart';
+import 'package:task_app/feature/task/data/model/task_model.dart';
 import 'package:task_app/feature/task/presentation/view/widgets/build_task_empty.dart';
 import 'package:task_app/feature/task/presentation/view/widgets/custom_list_view.dart';
 
-/////////////////////////////////////////////////
-// Ui
-// loading
-// empty
 class CustomConditionalBuilder extends StatelessWidget {
   const CustomConditionalBuilder({
     super.key,

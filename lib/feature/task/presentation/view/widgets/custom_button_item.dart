@@ -24,16 +24,13 @@ class CustomButtonItem extends StatelessWidget {
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
           backgroundColor: backgroundColor,
-          //  padding: EdgeInsets.all(padding),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(borderRadius))),
       child: isLoading
           ? const SizedBox(
               width: 25,
               height: 25,
-              child: CircularProgressIndicator(
-                  // color: Colors.black,
-                  ),
+              child: CircularProgressIndicator(),
             )
           : Text(
               title,

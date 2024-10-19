@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:task_app/constants.dart';
 import 'package:task_app/core/utils/app_style.dart';
@@ -62,7 +60,6 @@ class EditTaskViewBody extends StatelessWidget {
                 }
               },
               onFieldSubmitted: (value) {
-                log(value);
                 editdate = value;
               },
               onTap: () async {
@@ -74,14 +71,8 @@ class EditTaskViewBody extends StatelessWidget {
                     .then(
                   (value) {
                     editdate = DateFormat.yMMMEd().format(value!);
-                    log('$editdate');
                   },
                 );
-                // if (selectedDate != null) {
-                //   editdate = selectedDate;
-                // } else {
-                //   editdate = date;
-                // }
               },
               keyboardType: TextInputType.datetime,
               hint: 'Due Date',

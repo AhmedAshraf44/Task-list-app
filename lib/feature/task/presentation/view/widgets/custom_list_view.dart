@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:task_app/feature/task/presentation/model/task_model.dart';
+import 'package:task_app/feature/task/data/model/task_model.dart';
 import 'package:task_app/feature/task/presentation/view/widgets/custom_card_item.dart';
 
 class CustomListView extends StatelessWidget {

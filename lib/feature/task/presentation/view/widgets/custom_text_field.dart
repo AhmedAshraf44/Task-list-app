@@ -15,7 +15,6 @@ class CustomTextField extends StatelessWidget {
     required this.keyboardType,
     this.onTap,
     this.validator,
-    this.onEditingComplete,
     this.onFieldSubmitted,
   });
   final String? hint;
@@ -26,13 +25,11 @@ class CustomTextField extends StatelessWidget {
   final TextInputType keyboardType;
   final void Function()? onTap;
   final String? Function(String?)? validator;
-  final void Function()? onEditingComplete;
   final void Function(String)? onFieldSubmitted;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       onFieldSubmitted: onFieldSubmitted,
-      onEditingComplete: onEditingComplete,
       validator: validator,
       onTap: onTap,
       controller: controller,

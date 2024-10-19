@@ -34,7 +34,6 @@ class CustomAppBarDesktop extends StatelessWidget {
             showModalBottomSheet(
               isDismissible: false,
               backgroundColor: Colors.transparent,
-              // barrierColor: Colors.transparent,
               isScrollControlled: true,
               context: context,
               builder: (context) {
@@ -42,20 +41,17 @@ class CustomAppBarDesktop extends StatelessWidget {
                   child: AspectRatio(
                     aspectRatio: 1 / 0.5,
                     child: Container(
-                      //height: 302,
                       decoration: BoxDecoration(
                         borderRadius: const BorderRadius.all(
                           Radius.circular(12),
                         ),
                         color: kWhiteColor,
                         boxShadow: [
-                          // Add elevation as a boxShadow
                           BoxShadow(
                             color: Colors.grey.withOpacity(0.5),
                             spreadRadius: 4,
                             blurRadius: 6,
-                            offset: const Offset(0,
-                                1), // Adjust the offset to control the elevation
+                            offset: const Offset(0, 1),
                           ),
                         ],
                       ),

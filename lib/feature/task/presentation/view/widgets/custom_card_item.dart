@@ -1,8 +1,7 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:task_app/core/utils/app_style.dart';
 import 'package:task_app/feature/task/presentation/manger/task_cubit/task_cubit.dart';
-import 'package:task_app/feature/task/presentation/model/task_model.dart';
+import 'package:task_app/feature/task/data/model/task_model.dart';
 import 'package:task_app/feature/task/presentation/view/edit_task_view.dart';
 import 'package:task_app/feature/task/presentation/view/widgets/custom_circle_avater_check.dart';
 import '../../../../../constants.dart';
@@ -20,7 +19,7 @@ class CustomCardItem extends StatelessWidget {
       key: Key(tasks.id.toString()),
       onDismissed: (direction) {
         cubit.deletTaskfromDatabase(id: tasks.id!);
-        log('delete : ${tasks.id}');
+        //log('delete : ${tasks.id}');
       },
       child: InkWell(
         onTap: () {
@@ -55,7 +54,7 @@ class CustomCardItem extends StatelessWidget {
                       id: tasks.id!);
                   // log('status : ${tasks['status']}');
                   // log('isStatus :${cubit.isStatus}');
-                  log('id: ${tasks.id!}');
+                  //  log('id: ${tasks.id!}');
                   cubit.changeStatus(cubit.isStatus);
                 },
                 backgroundColor: tasks.status == 'done'
