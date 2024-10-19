@@ -1,4 +1,4 @@
-//import 'package:bloc/bloc.dart';
+import 'package:bloc/bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,6 +12,9 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  // FirebaseFirestore.instance.settings = const Settings(
+  //   persistenceEnabled: true,
+  // );
   // if (kIsWeb) {
   // sqfliteFfiInit();
   // databaseFactory = databaseFactoryFfiWeb;
@@ -32,7 +35,9 @@ class TaskApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => TaskCubit()..createDatabase(),
+      create: (context) => TaskCubit()
+        ..createDatabase()
+        ..checkInternetConnectivity(),
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         // locale: DevicePreview.locale(context),

@@ -14,6 +14,7 @@ class AddTaskForm extends StatelessWidget {
   static var formKey = GlobalKey<FormState>();
   static TextEditingController tittleController = TextEditingController();
   static TextEditingController dateController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -63,8 +64,8 @@ class AddTaskForm extends StatelessWidget {
                 return null;
               }
             },
-            onTap: () {
-              showDatePicker(
+            onTap: () async {
+              await showDatePicker(
                       context: context,
                       initialDate: DateTime.now(),
                       firstDate: DateTime.now(),
@@ -100,7 +101,7 @@ class AddTaskForm extends StatelessWidget {
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
                       formKey.currentState!.save();
-                      cubit.insertToDatabase(
+                      cubit.insertTaskToDatabase(
                         title: tittleController.text,
                         date: dateController.text,
                       );

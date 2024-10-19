@@ -1,5 +1,5 @@
-import 'dart:developer';
-
+import 'dart:async';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_app/core/utils/app_style.dart';
@@ -12,8 +12,32 @@ import 'package:task_app/feature/task/presentation/view/widgets/task_app_mobile_
 import '../../../../constants.dart';
 import 'widgets/custom_button_item.dart';
 
-class TaskView extends StatelessWidget {
+class TaskView extends StatefulWidget {
   const TaskView({super.key});
+
+  @override
+  State<TaskView> createState() => _TaskViewState();
+}
+
+class _TaskViewState extends State<TaskView> {
+  late StreamSubscription<List<ConnectivityResult>> subscription;
+  @override
+  initState() {
+    super.initState();
+
+    subscription = Connectivity()
+        .onConnectivityChanged
+        .listen((List<ConnectivityResult> result) {
+      // Received changes in available connectivity types!
+    });
+  }
+
+// Be sure to cancel subscription after you are done
+  @override
+  dispose() {
+    subscription.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +93,6 @@ class TaskView extends StatelessWidget {
           } else {
             tasks = cubit.doneTasks;
           }
-          log("tasks tasks: $tasks");
           return AdaptiveLayoutWidget(
             mobileLayout: (context) => TaskAppMobileLayout(
               tasks: tasks,

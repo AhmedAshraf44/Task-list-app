@@ -19,7 +19,7 @@ class CustomCardItem extends StatelessWidget {
     return Dismissible(
       key: Key(tasks.id.toString()),
       onDismissed: (direction) {
-        cubit.deletfromDatabase(id: tasks.id);
+        cubit.deletTaskfromDatabase(id: tasks.id!);
         log('delete : ${tasks.id}');
       },
       child: InkWell(
@@ -28,7 +28,7 @@ class CustomCardItem extends StatelessWidget {
               builder: (context) => EditTaskView(
                     title: tasks.title,
                     date: tasks.date,
-                    id: tasks.id,
+                    id: tasks.id!,
                   )));
         },
         child: Card(
@@ -50,12 +50,12 @@ class CustomCardItem extends StatelessWidget {
               ),
               trailing: CustomCircleAvaterCheck(
                 onTap: () {
-                  cubit.updateData(
+                  cubit.updateTaskToDatabase(
                       status: cubit.isStatus ? 'done' : 'not done',
-                      id: tasks.id);
+                      id: tasks.id!);
                   // log('status : ${tasks['status']}');
                   // log('isStatus :${cubit.isStatus}');
-                  // log('id: ${tasks['id']}');
+                  log('id: ${tasks.id!}');
                   cubit.changeStatus(cubit.isStatus);
                 },
                 backgroundColor: tasks.status == 'done'

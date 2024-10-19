@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:task_app/constants.dart';
 import 'package:task_app/core/utils/app_style.dart';
@@ -59,8 +61,12 @@ class EditTaskViewBody extends StatelessWidget {
                   return null;
                 }
               },
-              onTap: () {
-                showDatePicker(
+              onFieldSubmitted: (value) {
+                log(value);
+                editdate = value;
+              },
+              onTap: () async {
+                await showDatePicker(
                         context: context,
                         initialDate: DateTime.now(),
                         firstDate: DateTime.now(),
@@ -68,8 +74,14 @@ class EditTaskViewBody extends StatelessWidget {
                     .then(
                   (value) {
                     editdate = DateFormat.yMMMEd().format(value!);
+                    log('$editdate');
                   },
                 );
+                // if (selectedDate != null) {
+                //   editdate = selectedDate;
+                // } else {
+                //   editdate = date;
+                // }
               },
               keyboardType: TextInputType.datetime,
               hint: 'Due Date',
@@ -88,9 +100,9 @@ class EditTaskViewBody extends StatelessWidget {
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
                         formKey.currentState!.save();
-                        cubit.updateData(
-                          title: editTitle,
-                          date: editdate,
+                        cubit.updateTaskToDatabase(
+                          title: editTitle ?? title,
+                          date: editdate ?? date,
                           id: id,
                         );
                         Navigator.of(context).pop();

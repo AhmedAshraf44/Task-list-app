@@ -29,10 +29,11 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   bloc: ^8.1.4
+  cloud_firestore: ^5.4.4
   conditional_builder_null_safety: ^0.0.6
+  connectivity_plus: ^6.1.0
   cupertino_icons: ^1.0.8
   device_preview: ^1.2.0
-  firebase_auth: ^5.3.1
   firebase_core: ^3.6.0
   flutter:
     sdk: flutter
@@ -40,8 +41,6 @@ dependencies:
   intl: ^0.19.0
   modal_progress_hud_nsn: ^0.5.1
   sqflite: ^2.4.0
-  # sqflite_common: ^2.5.4+5
-  # sqflite_common_ffi_web: ^0.1.0 
 
 dev_dependencies:
   flutter_lints: ^5.0.0

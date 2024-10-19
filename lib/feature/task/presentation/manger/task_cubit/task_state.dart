@@ -22,3 +22,7 @@ class GetDatabaseLoadingState extends TaskState {}
 class UpdateDatabaseState extends TaskState {}
 
 class DeleteDatabaseState extends TaskState {}
+
+class InternetConnected extends TaskState {}
+
+class InternetDisconnected extends TaskState {}
